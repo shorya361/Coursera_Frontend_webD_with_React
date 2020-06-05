@@ -40,23 +40,25 @@ class DishDetailComponent extends Component {
         </list>
       );
     });
+    const dishes = (
+      <Card style={{ height: '100%' }}>
+        <CardImg
+          width='100%'
+          height='60%'
+          src={this.props.dishes.image}
+          alt={this.props.dishes.name}
+        />
+        <CardBody>
+          <CardTitle>{this.props.dishes.name}</CardTitle>
+          <CardText>{this.props.dishes.description}</CardText>
+        </CardBody>
+      </Card>
+    );
     return (
       <div className='container'>
         <div className='row'>
-          <div className='col-12 col-md-5 m-1'>
-            <Card>
-              <CardImg
-                width='100%'
-                src={this.props.dishes.image}
-                alt={this.props.dishes.name}
-              />
-              <CardBody>
-                <CardTitle>{this.props.dishes.name}</CardTitle>
-                <CardText>{this.props.dishes.description}</CardText>
-              </CardBody>
-            </Card>
-          </div>
-          <div className='col-12 col-md-5 m-1' style={{ height: '50px' }}>
+          <div className='col-12 col-md-5 m-1'>{dishes}</div>
+          <div className='col-12 col-md-5 m-1' style={{ height: '100%' }}>
             <h3 className='mb-2'>Comments</h3>
             {comments}
           </div>
