@@ -44,7 +44,7 @@ class DishDetailComponent extends Component {
       <Card style={{ height: '100%' }}>
         <CardImg
           width='100%'
-          height='60%'
+          height='65%'
           src={this.props.dishes.image}
           alt={this.props.dishes.name}
         />
