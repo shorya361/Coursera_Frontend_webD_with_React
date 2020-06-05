@@ -28,7 +28,7 @@ class DishDetailComponent extends Component {
         <list className='row' key='comment.id'>
           <ul
             className='col-12'
-            style={{ fontSize: '20px', listStyleType: 'none' }}
+            style={{ fontSize: '18px', listStyleType: 'none' }}
           >
             <li className='mb-2'>{comment.comment}</li>
             <li className='mb-2'>
@@ -56,7 +56,7 @@ class DishDetailComponent extends Component {
               </CardBody>
             </Card>
           </div>
-          <div className='col-12 col-md-5 m-1'>
+          <div className='col-12 col-md-5 m-1' style={{ height: '50px' }}>
             <h3 className='mb-2'>Comments</h3>
             {comments}
           </div>
