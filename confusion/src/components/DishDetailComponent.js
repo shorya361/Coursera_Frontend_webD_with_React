@@ -2,26 +2,6 @@ import React, { Component } from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
 
 class DishDetailComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      months: [
-        'Jan',
-        'Feb',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec',
-      ],
-    };
-  }
-
   render() {
     console.log('inside dish detail', this.props.dish);
     const comments = this.props.dish.comments.map((comment) => {
