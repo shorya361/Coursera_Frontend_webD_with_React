@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
-
+import {
+  Card,
+  CardImg,
+  CardText,
+  CardBody,
+  CardTitle,
+  Breadcrumb,
+  BreadcrumbItem,
+} from 'reactstrap';
+import { Link } from 'react-router-dom';
 class DishDetailComponent extends Component {
   render() {
-    console.log('inside dish detail', this.props.dish);
-    const comments = this.props.dish.comments.map((comment) => {
+    console.log('inside dish detail', this.props.comments);
+    const comments = this.props.comments.map((comment) => {
       return (
         <div>
           <list className='row' key='comment.id'>
@@ -43,15 +51,19 @@ class DishDetailComponent extends Component {
 
     return (
       <div className='container'>
-        {
-          <div className='row'>
-            <div className='col-12 col-md-5 m-1'>{dishes}</div>
-            <div className='col-12 col-md-5 m-1' style={{ height: '100%' }}>
-              <h3 className='mb-2'>Comments</h3>
-              {comments}
-            </div>
+        <Breadcrumb>
+          <BreadcrumbItem>
+            <Link to='/menu'>Menu</Link>
+          </BreadcrumbItem>
+          <BreadcrumbItem active>{this.props.dish.name}</BreadcrumbItem>
+        </Breadcrumb>
+        <div className='row'>
+          <div className='col-12 col-md-5 m-1'>{dishes}</div>
+          <div className='col-12 col-md-5 m-1' style={{ height: '100%' }}>
+            <h3 className='mb-2'>Comments</h3>
+            {comments}
           </div>
-        }
+        </div>
       </div>
     );
   }
