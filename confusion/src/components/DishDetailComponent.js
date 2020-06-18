@@ -7,9 +7,45 @@ import {
   CardTitle,
   Breadcrumb,
   BreadcrumbItem,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  Row,
+  Input,
+  Label,
+  Button,
+  Col,
 } from 'reactstrap';
+import { LocalForm, Control, Errors } from 'react-redux-form';
 import { Link } from 'react-router-dom';
+
+const required = (val) => val && val.length;
+const maxLength = (len) => (val) => !val || val.length <= len;
+
+const minLength = (len) => (val) => val && val.length >= len;
+
 class DishDetailComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      istoggleModal: false,
+    };
+    this.toggleModal = this.toggleModal.bind(this);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  toggleModal() {
+    this.setState({
+      istoggleModal: !this.state.istoggleModal,
+    });
+  }
+  handleSubmit() {
+    console.log('comment Submitted');
+    alert('comment Submitted');
+    this.toggleModal();
+  }
+
   render() {
     console.log('inside dish detail', this.props.comments);
     const comments = this.props.comments.map((comment) => {
@@ -62,6 +98,75 @@ class DishDetailComponent extends Component {
           <div className='col-12 col-md-5 m-1' style={{ height: '100%' }}>
             <h3 className='mb-2'>Comments</h3>
             {comments}
+            <Button outline onClick={this.toggleModal}>
+              <span className='fa fa-pencil'></span>Submit Comment
+            </Button>
+            <Modal isOpen={this.state.istoggleModal} toggle={this.toggleModal}>
+              <ModalHeader toggle={this.toggleModal}>
+                {' '}
+                Submit Comment
+              </ModalHeader>
+              <ModalBody md={10}>
+                <div className='container'>
+                  <LocalForm onSubmit={this.handleSubmit}>
+                    <Row className='form-group'>
+                      <Label htmlfor='rating'>Rating</Label>
+
+                      <Input
+                        type='number'
+                        id='rating'
+                        name='rating'
+                        className='form-group'
+                      ></Input>
+                    </Row>
+                    <Row className='form-group'>
+                      <Label htmlFor='name'>Name</Label>
+
+                      <Control.text
+                        model='.name'
+                        id='name'
+                        name='name'
+                        className='form-control'
+                        validators={{
+                          required,
+                          minLength: minLength(3),
+                          maxLength: maxLength(15),
+                        }}
+                      />
+                    </Row>
+                    <Errors
+                      className='text-danger'
+                      model='.name'
+                      show='touched'
+                      messages={{
+                        required: 'Required  ',
+                        minLength: 'Must be greater than 2 characters  ',
+                        maxLength: 'Must be 15 characters or less',
+                      }}
+                    />
+
+                    <Row className='form-group'>
+                      <Label htmlFor='comment'>Comment</Label>
+
+                      <Control.textarea
+                        model='.comment'
+                        id='comment'
+                        name='comment'
+                        rows='6'
+                        className='form-control'
+                      />
+                    </Row>
+                    <Row className='form-group'>
+                      <Col>
+                        <Button type='submit' color='primary'>
+                          Submit
+                        </Button>
+                      </Col>
+                    </Row>
+                  </LocalForm>
+                </div>
+              </ModalBody>
+            </Modal>
           </div>
         </div>
       </div>
