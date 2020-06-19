@@ -40,14 +40,20 @@ class DishDetailComponent extends Component {
       istoggleModal: !this.state.istoggleModal,
     });
   }
-  handleSubmit() {
-    console.log('comment Submitted');
-    alert('comment Submitted');
+  handleSubmit(values) {
     this.toggleModal();
+    this.props.addComment(
+      this.props.dish.id,
+      values.rating,
+      values.name,
+      values.comment
+    );
+    console.log(values);
   }
 
   render() {
-    console.log('inside dish detail', this.props.comments);
+    // console.log('inside dish detail', this.props.comments);
+    console.log(this.props);
     const comments = this.props.comments.map((comment) => {
       return (
         <div>
@@ -108,7 +114,7 @@ class DishDetailComponent extends Component {
               </ModalHeader>
               <ModalBody md={10}>
                 <div className='container'>
-                  <LocalForm onSubmit={this.handleSubmit}>
+                  <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
                     <Row className='form-group'>
                       <Label htmlfor='rating'>Rating</Label>
 
