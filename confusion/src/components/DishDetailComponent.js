@@ -19,7 +19,7 @@ import {
 import { LocalForm, Control, Errors } from 'react-redux-form';
 import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
-
+import { baseUrl } from '../shared/bseUrl';
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !val || val.length <= len;
 
@@ -109,7 +109,7 @@ class DishDetailComponent extends Component {
                 <CardImg
                   width='100%'
                   height='65%'
-                  src={this.props.dish.image}
+                  src={baseUrl + this.props.dish.image}
                   alt={this.props.dish.name}
                 />
                 <CardBody>
