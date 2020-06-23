@@ -45,13 +45,13 @@ class DishDetailComponent extends Component {
   }
   handleSubmit(values) {
     this.toggleModal();
-    this.props.addComment(
+    this.props.postComments(
       this.props.dish.id,
       values.rating,
       values.name,
       values.comment
     );
-    console.log(values);
+    // console.log(values);
   }
 
   DishDetail() {

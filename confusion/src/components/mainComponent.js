@@ -9,7 +9,7 @@ import Contact from './ContactComponent';
 import About from './AboutComponent';
 import { connect } from 'react-redux';
 import {
-  addComment,
+  postComments,
   fetchDishes,
   fetchComments,
   fetchPromos,
@@ -25,14 +25,17 @@ const mapStateToProps = (state) => {
   };
 };
 const mapDispatchToProps = (dispatch) => ({
-  addComment: (dishId, rating, author, comment) =>
-    dispatch(addComment(dishId, rating, author, comment)),
+  postComments: (dishId, rating, author, comment) =>
+    dispatch(postComments(dishId, rating, author, comment)),
+
   fetchDishes: () => {
     dispatch(fetchDishes());
   },
+
   resetFeedbackForm: () => {
     dispatch(actions.reset('feedback'));
   },
+
   fetchComments: () => {
     dispatch(fetchComments());
   },
@@ -85,7 +88,7 @@ class Main extends Component {
             (comment) => comment.dishId === parseInt(match.params.dishid, 10)
           )}
           commentsErrMess={this.props.comments.errMess}
-          addComment={this.props.addComment}
+          postComments={this.props.postComments}
         />
       );
     };
