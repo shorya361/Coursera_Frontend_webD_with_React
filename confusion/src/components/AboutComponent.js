@@ -7,31 +7,34 @@ import {
   CardHeader,
   Media,
 } from 'reactstrap';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 import { Link } from 'react-router-dom';
-
+import { baseUrl } from '../shared/bseUrl';
 function About(props) {
   console.log(props.leaders);
   const leaders = props.leaders.map((leader) => {
     return (
-      <div>
-        <Media style={{ margin: '30px auto' }}>
-          <Media left>
-            <img
-              src={leader.image}
-              alt=''
-              style={{ width: '75%', height: '75%' }}
-            />
-          </Media>
-          <Media body>
-            <Media heading>{leader.name}</Media>
-            <Media sub-heading>
-              {' '}
-              <strong>{leader.designation}</strong>
+      <Fade in>
+        <div>
+          <Media style={{ margin: '30px auto' }}>
+            <Media left>
+              <img
+                src={baseUrl + leader.image}
+                alt=''
+                style={{ width: '75%', height: '75%' }}
+              />
             </Media>
-            {leader.description}
+            <Media body>
+              <Media heading>{leader.name}</Media>
+              <Media sub-heading>
+                {' '}
+                <strong>{leader.designation}</strong>
+              </Media>
+              {leader.description}
+            </Media>
           </Media>
-        </Media>
-      </div>
+        </div>
+      </Fade>
     );
   });
 
@@ -111,7 +114,9 @@ function About(props) {
           <h2>Corporate Leadership</h2>
         </div>
         <div className='col-12'>
-          <Media list>{leaders}</Media>
+          <Media list>
+            <Stagger in>{leaders}</Stagger>
+          </Media>
         </div>
       </div>
     </div>

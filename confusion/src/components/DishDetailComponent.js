@@ -47,6 +47,8 @@ class DishDetailComponent extends Component {
   }
   handleSubmit(values) {
     this.toggleModal();
+    console.log(this.props.allcomments.comments.length);
+    console.log('values :', values);
     this.props.postComments(
       this.props.dish.id,
       values.rating,
@@ -143,16 +145,24 @@ class DishDetailComponent extends Component {
                 </ModalHeader>
                 <ModalBody md={10}>
                   <div className='container'>
-                    <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
+                    <LocalForm onSubmit={this.handleSubmit}>
                       <Row className='form-group'>
-                        <Label htmlfor='rating'>Rating</Label>
-
-                        <Input
-                          type='number'
-                          id='rating'
-                          name='rating'
-                          className='form-group'
-                        ></Input>
+                        <Label htmlFor='rating' md={12}>
+                          Rating
+                        </Label>
+                        <Col md={{ size: 12 }}>
+                          <Control.select
+                            model='.rating'
+                            name='rating'
+                            className='form-control'
+                          >
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                          </Control.select>
+                        </Col>
                       </Row>
                       <Row className='form-group'>
                         <Label htmlFor='name'>Name</Label>

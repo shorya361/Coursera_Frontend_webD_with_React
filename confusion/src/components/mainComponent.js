@@ -13,6 +13,8 @@ import {
   fetchDishes,
   fetchComments,
   fetchPromos,
+  fetchLeaders,
+  postFeedback,
 } from '../redux/ActionCreators';
 import { actions } from 'react-redux-form';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -22,11 +24,14 @@ const mapStateToProps = (state) => {
     leaders: state.leaders,
     comments: state.comments,
     promotions: state.promotions,
+    feedback: state.feedback,
   };
 };
+
 const mapDispatchToProps = (dispatch) => ({
   postComments: (dishId, rating, author, comment) =>
     dispatch(postComments(dishId, rating, author, comment)),
+  postFeedback: (feedback) => dispatch(postFeedback(feedback)),
 
   fetchDishes: () => {
     dispatch(fetchDishes());
@@ -42,6 +47,10 @@ const mapDispatchToProps = (dispatch) => ({
   fetchPromos: () => {
     dispatch(fetchPromos());
   },
+
+  fetchLeaders: () => {
+    dispatch(fetchLeaders());
+  },
 });
 
 class Main extends Component {
@@ -53,6 +62,8 @@ class Main extends Component {
     this.props.fetchDishes();
     this.props.fetchComments();
     this.props.fetchPromos();
+    this.props.fetchLeaders();
+    console.log(this.props);
   }
 
   render() {
@@ -69,7 +80,11 @@ class Main extends Component {
           }
           promosLoading={this.props.promotions.isLoading}
           promosErrMess={this.props.promotions.errMess}
-          leader={this.props.leaders.filter((leader) => leader.featured)[0]}
+          leaders={
+            this.props.leaders.leaders.filter((leader) => leader.featured)[0]
+          }
+          leadersLoading={this.props.leaders.isLoading}
+          leadersErrMess={this.props.leaders.errMess}
         />
       );
     };
@@ -82,6 +97,7 @@ class Main extends Component {
               (dish) => dish.id === parseInt(match.params.dishid, 10)
             )[0]
           }
+          allcomments={this.props.comments}
           isLoading={this.props.dishes.isLoading}
           errMess={this.props.dishes.errMess}
           comments={this.props.comments.comments.filter(
@@ -94,7 +110,7 @@ class Main extends Component {
     };
 
     const AboutUs = () => {
-      return <About leaders={this.props.leaders} />;
+      return <About leaders={this.props.leaders.leaders} />;
     };
 
     return (
@@ -118,7 +134,10 @@ class Main extends Component {
                 exact
                 path='/contactus'
                 component={() => (
-                  <Contact resetFeedbackForm={this.props.resetFeedbackForm} />
+                  <Contact
+                    resetFeedbackForm={this.props.resetFeedbackForm}
+                    postFeedback={this.props.postFeedback}
+                  />
                 )}
               />
               <Route exact path='/aboutus' component={AboutUs} />
